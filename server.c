@@ -31,7 +31,41 @@ void server(){
 		}
 }
 }
+int game_ckeck(int idx){
+	int i;
 
+	for(i = 0; i < 7 && board[idx][i] == -1; i++);	// 檢查操作
+	if(board[idx][i] != -1){
+		switch(i){
+			case 0:
+				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
+					return 1;
+				else if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])	
+					return 1;
+				else if(board[idx][i] == board[idx][i+4] && board[idx][i] == board[idx][i+8])
+					return 1;
+				break;
+			case 1:
+				if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])
+					return 1;
+				break;
+			case 2:
+				if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])
+					return 1;
+				else if(board[idx][i] == board[idx][i+2] && board[idx][i] == board[idx][i+4])
+					return 1;
+				break;
+			case 3:
+				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
+					return 1;
+				break;
+			case 6:
+				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
+					return 1;
+		}
+	}
+	return 0;
+}
 void game(int p1,int p2){
 	int i, len, move;
 	char msg_send[MAXLINE];
@@ -97,41 +131,6 @@ void game(int p1,int p2){
 	game_state[p1] = -1;
 	game_state[p2] = -1;
 	printf("END..........\n");
-}
-int game_ckeck(int idx){
-	int i;
-
-	for(i = 0; i < 7 && board[idx][i] == -1; i++);	// 檢查操作
-	if(board[idx][i] != -1){
-		switch(i){
-			case 0:
-				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
-					return 1;
-				else if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])	
-					return 1;
-				else if(board[idx][i] == board[idx][i+4] && board[idx][i] == board[idx][i+8])
-					return 1;
-				break;
-			case 1:
-				if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])
-					return 1;
-				break;
-			case 2:
-				if(board[idx][i] == board[idx][i+3] && board[idx][i] == board[idx][i+6])
-					return 1;
-				else if(board[idx][i] == board[idx][i+2] && board[idx][i] == board[idx][i+4])
-					return 1;
-				break;
-			case 3:
-				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
-					return 1;
-				break;
-			case 6:
-				if(board[idx][i] == board[idx][i+1] && board[idx][i] == board[idx][i+2])
-					return 1;
-		}
-	}
-	return 0;
 }
 
 void receive_send(int n){
